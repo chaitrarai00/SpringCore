@@ -3,9 +3,11 @@ package com.example.demo;
 //import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.dependencyinjection.configuration.DIConfiguartion;
 import com.dependencyinjection.consumer.MyAnnotationApplication;
+import com.dependencyinjection.consumer.MyXmlApplication;
 
 //@SpringBootApplication
 public class SpringCoreApplication {
@@ -19,6 +21,9 @@ public class SpringCoreApplication {
 		myAnnotationApplication.processMessage
 		("You got to code and not listen to anyone", "Youfromthefuture@wellwish.com");
 		annotationConfigApplicationContext.close();
+		ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+		MyXmlApplication app=context.getBean(MyXmlApplication.class);
+		app.processMessage("You got to code and not listen to anyone", "Youfromthefuture@wellwish.com");
 	}
 
 }
