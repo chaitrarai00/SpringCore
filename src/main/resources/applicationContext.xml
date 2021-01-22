@@ -3,7 +3,7 @@
 	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 https://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
-
+	
 <!--
 	<bean id="MyXMLApp" class="com.dependencyinjection.consumer.MyXmlApplication">
 		<constructor-arg>
@@ -11,6 +11,7 @@ https://www.springframework.org/schema/beans https://www.springframework.org/sch
 		</constructor-arg>
 	</bean>
 -->
+
 	<bean id="signal" class="com.dependencyinjection.services.SignalMessageService"></bean>
 	<bean id="MyXMLApp" class="com.dependencyinjection.consumer.MyXmlApplication">
 		<property name="service" ref="signal"></property>
