@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.dependencyinjection.beanscopes.Configurationclass;
 import com.dependencyinjection.beanscopes.MyBeanPrototype;
 import com.dependencyinjection.beanscopes.MyBeanSingleton;
 import com.dependencyinjection.configuration.DIConfiguartion;
@@ -20,18 +21,23 @@ public class SpringCoreApplication {
 		=new AnnotationConfigApplicationContext(DIConfiguartion.class);
 		MyAnnotationApplication myAnnotationApplication=
 				annotationConfigApplicationContext.getBean(MyAnnotationApplication.class);
-		myAnnotationApplication.processMessage
+	myAnnotationApplication.processMessage
 		("You got to code and not listen to anyone", "Youfromthefuture@wellwish.com");
-		MyBeanSingleton beanSingleton1=annotationConfigApplicationContext.getBean(MyBeanSingleton.class);
-		MyBeanSingleton beanSingleton2=annotationConfigApplicationContext.getBean(MyBeanSingleton.class);
+	annotationConfigApplicationContext.close();
+	AnnotationConfigApplicationContext ctx
+	=new AnnotationConfigApplicationContext(Configurationclass.class);
+	
+		MyBeanSingleton beanSingleton1=ctx.getBean(MyBeanSingleton.class);
+		MyBeanSingleton beanSingleton2=ctx.getBean(MyBeanSingleton.class);
 		System.out.println("Are singleton objects equal? "+beanSingleton1.equals(beanSingleton2)+" see for youself Bean1:"+beanSingleton1.hashCode()+"Bean2: "+beanSingleton2.hashCode());
-		MyBeanPrototype beanPrototype1 =annotationConfigApplicationContext.getBean(MyBeanPrototype.class);
-		MyBeanPrototype beanPrototype2=annotationConfigApplicationContext.getBean(MyBeanPrototype.class);
+		MyBeanPrototype beanPrototype1 =ctx.getBean(MyBeanPrototype.class);
+		MyBeanPrototype beanPrototype2=ctx.getBean(MyBeanPrototype.class);
 		System.out.println("Are singleton objects equal? "+beanPrototype1.equals(beanPrototype2)+" see for youself Bean1:"+beanPrototype1.hashCode()+"Bean2: "+beanPrototype2.hashCode());
-		annotationConfigApplicationContext.close();
-		ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
-		MyXmlApplication app=context.getBean(MyXmlApplication.class);
-		app.processMessage("You got to code and not listen to anyone", "Youfromthefuture@wellwish.com");
+		ctx.close();
+//		ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+//		MyXmlApplication app=context.getBean(MyXmlApplication.class);
+//		app.processMessage("You got to code and not listen to anyone", "Youfromthefuture@wellwish.com");
+//		context.close();
 		
 	}
 
